@@ -1,0 +1,18 @@
+services:
+  - type: web
+    name: full-maven-scanner
+    runtime: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn app:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /health
+    envVars:
+      - key: POLL_SECONDS
+        value: "60"
+      - key: MAX_SYMBOLS_PER_MARKET
+        value: "100"
+      - key: RELATIVE_VOLUME_THRESHOLD
+        value: "2.5"
+      - key: PRICE_CHANGE_THRESHOLD
+        value: "1.0"
+      - key: NEWS_FEED_URLS
+        value: "https://www.coindesk.com/arc/outboundfeeds/rss/"
